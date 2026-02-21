@@ -1,0 +1,14 @@
+{
+  "name": "github-repo-five-lenses",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright tests for RepoLens Chrome extension",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.54.1",
+    "playwright": "^1.54.1"
+  }
+}
