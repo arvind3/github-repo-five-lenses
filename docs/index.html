@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RepoLens Web Reports</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="page-glow" aria-hidden="true"></div>
+  <header class="hero">
+    <p class="eyebrow">RepoLens Web</p>
+    <h1>Generate Multi-Page GitHub Reports</h1>
+    <p class="hero-copy">Paste any public repository URL and generate five perspective pages: Hub, Engineering, Product, Capability, and Executive.</p>
+  </header>
+
+  <main class="layout">
+    <section class="card controls">
+      <label for="repoUrl" class="label">Repository URL</label>
+      <input id="repoUrl" class="input" type="url" placeholder="https://github.com/owner/repo" autocomplete="off">
+      <p id="urlError" class="inline-error hidden"></p>
+
+      <button id="toggleContext" class="link-btn" type="button">+ Add Context</button>
+      <section id="contextPanel" class="context hidden">
+        <label for="industry" class="label">Target Industry</label>
+        <input id="industry" class="input" type="text" placeholder="e.g. Healthcare, DevOps, Fintech">
+
+        <label for="useCases" class="label">Known Use Cases</label>
+        <textarea id="useCases" class="input textarea" rows="3" placeholder="Describe 1-2 real scenarios"></textarea>
+
+        <label for="metrics" class="label">Business Metrics</label>
+        <input id="metrics" class="input" type="text" placeholder="e.g. 10x faster than alternatives">
+      </section>
+
+      <div class="actions">
+        <button id="generateBtn" class="primary-btn" type="button">Generate Report Pages</button>
+        <button id="resetBtn" class="ghost-btn" type="button">Reset</button>
+      </div>
+      <p class="note">Data source: GitHub public API only. No external AI services.</p>
+    </section>
+
+    <section id="progressPanel" class="card hidden" aria-live="polite">
+      <h2>Generation Progress</h2>
+      <p id="progressRepo" class="muted mono">analyzing: owner/repo</p>
+      <ul class="progress-list">
+        <li data-step="1"><span class="dot" aria-hidden="true"></span><span>Fetching repository metadata...</span><strong class="status">pending</strong></li>
+        <li data-step="2"><span class="dot" aria-hidden="true"></span><span>Reading README and file structure...</span><strong class="status">pending</strong></li>
+        <li data-step="3"><span class="dot" aria-hidden="true"></span><span>Running analysis engine...</span><strong class="status">pending</strong></li>
+        <li data-step="4"><span class="dot" aria-hidden="true"></span><span>Generating five awareness pages...</span><strong class="status">pending</strong></li>
+      </ul>
+    </section>
+
+    <section id="errorPanel" class="card error hidden">
+      <h2>Generation Error</h2>
+      <p id="errorMessage"></p>
+    </section>
+
+    <section id="resultsPanel" class="card results hidden">
+      <div class="results-head">
+        <h2>Pages Ready</h2>
+        <p id="resultsMeta" class="muted mono"></p>
+      </div>
+      <div id="pageRows" class="rows"></div>
+      <div class="actions compact">
+        <button id="downloadCurrentBtn" class="ghost-btn" type="button">Download Current Page</button>
+        <button id="downloadAllBtn" class="primary-btn" type="button">Download All as ZIP</button>
+      </div>
+    </section>
+
+    <section id="previewPanel" class="card preview hidden">
+      <div class="preview-head">
+        <h2>Live Preview</h2>
+        <p id="previewLabel" class="muted mono">Hub</p>
+      </div>
+      <nav id="previewTabs" class="tabs"></nav>
+      <iframe id="previewFrame" title="Generated page preview" sandbox="allow-scripts allow-same-origin allow-popups"></iframe>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>RepoLens Web works entirely client-side and stores generated pages in your browser local storage.</p>
+  </footer>
+
+  <script src="./lib/jszip.min.js"></script>
+  <script src="./engine/fetcher.js"></script>
+  <script src="./engine/analyzer.js"></script>
+  <script src="./engine/generator.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -5,7 +5,8 @@
   "description": "Playwright tests for RepoLens Chrome extension",
   "scripts": {
     "test:e2e": "playwright test",
-    "test:e2e:headed": "playwright test --headed"
+    "test:e2e:headed": "playwright test --headed",
+    "test:web": "playwright test tests/repolens.web.spec.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.54.1",
