@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RepoLens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <main id="app" class="state-ready">
+    <section class="panel state state-ready" id="readyState">
+      <header>
+        <h1 class="logo">RepoLens</h1>
+        <p class="tagline">Instant repo intelligence. No API key needed.</p>
+      </header>
+
+      <label class="field-label" for="repoUrl">Repository URL</label>
+      <input id="repoUrl" class="input" type="url" placeholder="https://github.com/owner/repo" autocomplete="off">
+      <p id="urlError" class="error-text hidden"></p>
+
+      <button id="toggleContext" class="context-toggle" type="button">+ Add Context ▾</button>
+      <section id="contextPanel" class="context-panel hidden">
+        <label class="field-label" for="industry">Target Industry</label>
+        <input id="industry" class="input" type="text" placeholder="e.g. Healthcare, DevOps, Fintech">
+
+        <label class="field-label" for="useCases">Known Use Cases</label>
+        <textarea id="useCases" class="input textarea" rows="2" placeholder="Describe 1-2 real scenarios"></textarea>
+
+        <label class="field-label" for="metrics">Business Metrics</label>
+        <input id="metrics" class="input" type="text" placeholder="e.g. 10x faster than alternatives">
+
+        <p class="hint">These enrich the Capability and Executive pages.</p>
+      </section>
+
+      <button id="generateBtn" class="primary-btn" type="button">Generate Pages -></button>
+      <p class="footer-note">Fetches from GitHub public API only.</p>
+    </section>
+
+    <section class="panel state state-generating hidden" id="generatingState">
+      <div class="scanline"></div>
+      <p class="mono muted" id="analyzingRepo">analyzing: owner/repo</p>
+      <ul class="progress-list">
+        <li data-step="1"><span class="dot"></span><span class="label">Fetching repository metadata...</span><span class="status">pending</span></li>
+        <li data-step="2"><span class="dot"></span><span class="label">Reading README and file structure...</span><span class="status">pending</span></li>
+        <li data-step="3"><span class="dot"></span><span class="label">Running analysis engine...</span><span class="status">pending</span></li>
+        <li data-step="4"><span class="dot"></span><span class="label">Generating 5 awareness pages...</span><span class="status">pending</span></li>
+      </ul>
+      <button id="cancelBtn" class="link-btn" type="button">Cancel</button>
+    </section>
+
+    <section class="panel state state-results hidden" id="resultsState">
+      <header class="results-header">
+        <h2>Pages Ready</h2>
+        <p class="mono muted" id="resultsRepo">owner/repo</p>
+        <p class="muted" id="elapsedTime">Generated in 0.0s</p>
+      </header>
+      <div id="pageRows" class="page-rows"></div>
+      <hr class="divider">
+      <button id="downloadZipBtn" class="secondary-btn" type="button">Download All as ZIP</button>
+      <button id="analyzeAnotherBtn" class="link-btn" type="button">Analyze Another Repo</button>
+    </section>
+
+    <section class="panel state state-error hidden" id="errorState">
+      <h2>Unable to Generate Pages</h2>
+      <p id="errorMessage" class="error-message"></p>
+      <button id="tryAgainBtn" class="primary-btn" type="button">Try Again</button>
+      <button id="reportIssueBtn" class="link-btn" type="button">Report Issue</button>
+    </section>
+  </main>
+
+  <script src="lib/jszip.min.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

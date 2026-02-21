@@ -1,0 +1,131 @@
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  height: 100%;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.toolbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 10px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  z-index: 10;
+}
+
+.toolbar-link,
+.toolbar-btn {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: transparent;
+  color: var(--text);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.toolbar-link:hover,
+.toolbar-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.title {
+  margin: 0;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pills {
+  position: fixed;
+  top: 40px;
+  left: 0;
+  right: 0;
+  height: 38px;
+  padding: 6px 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  z-index: 9;
+}
+
+.pill {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text);
+  padding: 4px 10px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.pill.active {
+  border-color: var(--accent);
+  background: rgba(88, 166, 255, 0.18);
+  color: var(--accent);
+}
+
+.content {
+  margin-top: 78px;
+  height: calc(100vh - 78px);
+}
+
+#pageFrame {
+  width: 100%;
+  height: calc(100vh - 78px);
+  border: none;
+  background: var(--bg);
+}
+
+.empty {
+  display: grid;
+  place-content: center;
+  height: calc(100vh - 78px);
+  text-align: center;
+  gap: 6px;
+}
+
+.empty h1 {
+  margin: 0;
+  font-family: 'Syne', sans-serif;
+}
+
+.empty p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.hidden {
+  display: none !important;
+}
