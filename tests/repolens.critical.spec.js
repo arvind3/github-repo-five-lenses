@@ -4,6 +4,7 @@ const os = require('os')
 const { test, expect, chromium } = require('@playwright/test')
 
 const extensionPath = path.resolve(__dirname, '..', 'repolens')
+const browserChannel = process.env.PW_BROWSER_CHANNEL || 'chromium'
 
 let context
 let extensionId
@@ -22,7 +23,7 @@ test.beforeAll(async () => {
 
   const userDataDir = fs.mkdtempSync(path.join(os.tmpdir(), 'repolens-pw-'))
   context = await chromium.launchPersistentContext(userDataDir, {
-    channel: 'chromium',
+    channel: browserChannel,
     headless: false,
     args: [
       `--disable-extensions-except=${extensionPath}`,
